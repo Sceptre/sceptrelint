@@ -2,7 +2,7 @@
 This repo contains scripts for the purpose of pre-commit processing
 (e.g. linting) of [Sceptre configs](https://docs.sceptre-project.org/dev/docs/stack_config.html)
 
-## Installation 
+## Installation
 
 The linter scripts can be installed by running `pip install .` and can be run from the
 [sceptre project root directory](https://sceptre.cloudreach.com/dev/docs/templates.html#templates).
@@ -60,7 +60,7 @@ __Note:__ To get usage info run the commands with the `--help` flag
 
 ### Pre-commit hook
 The scripts can also be [used as a pre-commit hook](https://pre-commit.com/#2-add-a-pre-commit-configuration),
-by including the following in `.pre-commit-config.yaml`: 
+by including the following in `.pre-commit-config.yaml`:
 ```
 -   repo: https://github.com/sceptre/sceptrelint
     rev: INSERT_VERSION
@@ -87,7 +87,7 @@ Stack name linter........................................................Failed
 By default the pre-commit hooks uses the regex defined by `files:` and `exclude:` in
 [.pre-commit-hooks.yaml](.pre-commit-hooks.yaml) to gather the files to process.
 That configuration setting can be overriden in the local project's
-`.pre-commit-config.yaml`. 
+`.pre-commit-config.yaml`.
 
 Override Example:
 ```yaml

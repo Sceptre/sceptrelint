@@ -18,12 +18,12 @@ def lint(files: list[str], tags: list[str]) -> bool:
         for tag in tags:
             if tag not in config[util.SCEPTRE_STACK_TAGS_KEY]:
                 print(
-                    f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing '
-                    f'{tag} [{file}]',
+                    f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing {tag} [{file}]',
                 )
                 result = True
 
     return result
+
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
@@ -38,6 +38,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     return int(lint(args.filenames, args.tag))
+
 
 if __name__ == '__main__':
     raise SystemExit(main())

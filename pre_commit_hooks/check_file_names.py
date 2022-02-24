@@ -6,6 +6,7 @@ from typing import Sequence
 
 from pre_commit_hooks import util
 
+
 def lint(files: list[str]) -> bool:
 
     result = False
@@ -19,6 +20,7 @@ def lint(files: list[str]) -> bool:
             result = True
 
     return result
+
 
 def main(argv: Sequence[str] | None = None) -> int:
     """

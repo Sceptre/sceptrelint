@@ -22,11 +22,3 @@
     always_run: true
     files: ^config/.*(.yaml|.yml|.json)$
     exclude: ^config/.*config(.yaml|.yml|.json)$
--   id: check-kdtest
-    name: "testing"
-    entry: check-kdtest
-    language: python
-    pass_filenames: true
-    always_run: true
-    files: ^config/.*(.yaml|.yml|.json)$
-    exclude: ^config/.*config(.yaml|.yml|.json)$
