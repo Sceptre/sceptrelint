@@ -32,18 +32,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     parser.add_argument(
-        '-t', '--tag', action='append',
+        '-t', '--tag', action='append', default=[],
         help='tag to check, may be specified multiple times',
     )
     args = parser.parse_args(argv)
 
-    if args.tag:
-        in_tags = args.tag
-    else:
-        in_tags = []
-
-    return int(lint(args.filenames, in_tags))
-
+    return int(lint(args.filenames, args.tags))
 
 if __name__ == '__main__':
     raise SystemExit(main())
