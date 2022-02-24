@@ -6,6 +6,7 @@ from typing import Sequence
 
 from pre_commit_hooks import util
 
+
 def lint(files: list[str]) -> bool:
 
     result = False
@@ -18,6 +19,7 @@ def lint(files: list[str]) -> bool:
 
     return result
 
+
 def main(argv: Sequence[str] | None = None) -> int:
     """
     Check that the `stack_name` value conforms to AWS cloudformation requirements
@@ -28,6 +30,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     return int(lint(args.filenames))
+
 
 if __name__ == '__main__':
     raise SystemExit(main())
