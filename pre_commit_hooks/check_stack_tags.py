@@ -37,7 +37,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    return int(lint(args.filenames, args.tags))
+    return int(lint(args.filenames, args.tag))
 
 if __name__ == '__main__':
     raise SystemExit(main())
