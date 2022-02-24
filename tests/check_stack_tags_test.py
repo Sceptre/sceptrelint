@@ -30,7 +30,13 @@ def test_stack_multiple_tag_exists():
     assert not lint(files, ['one', 'two'])
 
 
-def test_stack_tags_tag_missing():
+def test_stack_tags_tag_non_match():
     resource_path = get_resource_path(TEST_RESOURCES_DIR)
     files = [f'{resource_path}/stack_tags_multiple_tags.yaml']
     assert lint(files, ['three'])
+
+
+def test_stack_tags_tag_missing():
+    resource_path = get_resource_path(TEST_RESOURCES_DIR)
+    files = [f'{resource_path}/stack_tags_tag_missing.yaml']
+    assert lint(files, [])

@@ -11,7 +11,8 @@ def lint(files: list[str], tags: list[str]) -> bool:
     result = False
     for file in files:
         config = util.load_config(file)
-        if util.SCEPTRE_STACK_TAGS_KEY not in config:
+        if util.SCEPTRE_STACK_TAGS_KEY not in config \
+                or not config[util.SCEPTRE_STACK_TAGS_KEY]:
             print(f'- missing {util.SCEPTRE_STACK_TAGS_KEY} definition [{file}]')
             result = True
             break
