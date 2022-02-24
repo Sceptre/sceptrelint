@@ -1,0 +1,6 @@
+template:
+  path: "template.yaml"
+stack_name: "not_valid"
+stack_tags:
+  one: "1"
+  two: "2"

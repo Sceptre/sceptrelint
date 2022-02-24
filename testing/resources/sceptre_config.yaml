@@ -1,0 +1,3 @@
+template:
+  path: "template.yaml"
+stack_name: "simple-config"

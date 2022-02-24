@@ -1,0 +1,32 @@
+-   id: check-file-names
+    name: "check file names"
+    entry: check-file-names
+    language: python
+    pass_filenames: true
+    always_run: true
+    files: ^config/.*(.yaml|.yml|.json)$
+    exclude: ^config/.*config(.yaml|.yml|.json)$
+-   id: check-stack-tags
+    name: "check stack tags"
+    entry: check-stack-tags
+    language: python
+    pass_filenames: true
+    always_run: true
+    files: ^config/.*(.yaml|.yml|.json)$
+    exclude: ^config/.*config(.yaml|.yml|.json)$
+-   id: check-stack-names
+    name: "check stack names"
+    entry: check-stack-names
+    language: python
+    pass_filenames: true
+    always_run: true
+    files: ^config/.*(.yaml|.yml|.json)$
+    exclude: ^config/.*config(.yaml|.yml|.json)$
+-   id: check-kdtest
+    name: "testing"
+    entry: check-kdtest
+    language: python
+    pass_filenames: true
+    always_run: true
+    files: ^config/.*(.yaml|.yml|.json)$
+    exclude: ^config/.*config(.yaml|.yml|.json)$
