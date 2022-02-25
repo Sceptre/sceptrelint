@@ -11,17 +11,18 @@ def lint(files: list[str], tags: list[str]) -> bool:
     result = False
     for file in files:
         config = util.load_config(file)
-        if util.SCEPTRE_STACK_TAGS_KEY not in config \
-                or not config[util.SCEPTRE_STACK_TAGS_KEY]:
+        if util.SCEPTRE_STACK_TAGS_KEY in config:
+            if config[util.SCEPTRE_STACK_TAGS_KEY]:
+                for tag in tags:
+                    if tag not in config[util.SCEPTRE_STACK_TAGS_KEY]:
+                        print(f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing {tag} [{file}]')
+                        result = True
+            else:
+                print(f'- missing {util.SCEPTRE_STACK_TAGS_KEY} [{file}]')
+                result = True
+        else:
             print(f'- missing {util.SCEPTRE_STACK_TAGS_KEY} definition [{file}]')
             result = True
-            break
-        for tag in tags:
-            if tag not in config[util.SCEPTRE_STACK_TAGS_KEY]:
-                print(
-                    f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing {tag} [{file}]',
-                )
-                result = True
 
     return result
 
