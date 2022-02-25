@@ -1,0 +1,15 @@
+version: 2.1
+
+jobs:
+  lint-and-unit-test:
+    docker:
+      - image: cloudreach/sceptre-circleci:0.8.0
+    steps:
+      - checkout
+      - run:
+          command: tox
+
+workflows:
+  test:
+    jobs:
+      - lint-and-unit-test
