@@ -65,7 +65,7 @@ by including the following in `.pre-commit-config.yaml`:
 -   repo: https://github.com/sceptre/sceptrelint
     rev: INSERT_VERSION
     hooks:
-    -    id: compare-stack-and-file-names
+    -    id: check-file-names
     -    id: check-stack-names
     -    id: check-stack-tags
          args: [--tag=CostCenter]
