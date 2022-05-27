@@ -7,8 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: pre-commit run --all-files
-      - run:
           command: tox
 
 workflows:
