@@ -16,3 +16,9 @@
     language: python
     files: ^config/.*(.yaml|.yml|.json)$
     exclude: ^config/.*config(.yaml|.yml|.json)$
+-   id: check-stack-tag-values
+    name: "check stack tag values"
+    entry: check-stack-tag-values
+    language: python
+    files: ^config/.*(.yaml|.yml|.json)$
+    exclude: ^config/.*config(.yaml|.yml|.json)$

@@ -6,7 +6,7 @@ from typing import Sequence
 from pre_commit_hooks import util
 
 
-def get_valid_tag_values(files):
+def get_valid_tag_values(files: list[str]) -> list[str]:
     valid_values = []
     for file in files:
         if file.startswith('https') or file.startswith('http'):
@@ -15,10 +15,11 @@ def get_valid_tag_values(files):
             content = util.get_local_content(file)
 
         valid_values.extend(content)
+
     return valid_values
 
 
-def lint(files: list[str], tag: str, tag_value_files: [str]) -> bool:
+def lint(files: list[str], tag: str, tag_value_files: list[str]) -> bool:
 
     result = False
     valid_tag_values = get_valid_tag_values(tag_value_files)
@@ -27,7 +28,7 @@ def lint(files: list[str], tag: str, tag_value_files: [str]) -> bool:
         config = util.load_config(file)
         if util.SCEPTRE_STACK_TAGS_KEY in config:
             stack_tags = config[util.SCEPTRE_STACK_TAGS_KEY]
-            if tag not in stack_tags.keys():
+            if tag not in stack_tags:
                 print(f'- {tag} not set in config file {file}')
                 result = True
             else:
