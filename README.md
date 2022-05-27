@@ -26,7 +26,8 @@ CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/c
 
 * `check-stack-tags` Checks that specific stack tags are defined.
 
-The below checks that the `CostCenter` and `Project` tags are defined in sceptre config's `stack_tags` key.
+The below checks that the `CostCenter` and `Project` tags are defined in sceptre
+config's `stack_tags` key.
 ```yaml
 -   id: check-stack-tags
     args: [--tag=CostCenter, --tag=Project]
@@ -34,14 +35,16 @@ The below checks that the `CostCenter` and `Project` tags are defined in sceptre
 
 * `check-stack-tag-values` Checks that a specific stack tag is assigned a valid value.
 
-The below checks that the `CostCenter` tag is defined in sceptre config's `stack_tags` key and that the value assigned
-to it is valid.  The valid tag values are passed in with a `file`.
+The below checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
+key and that the value assigned to it is valid.  The valid tag values are passed
+in with a `file`.
 ```yaml
 -   id: check-stack-tags
-    args: --tag=CostCenter, [--file="/path/to/file.json"]
+    args: [--tag=CostCenter, --file=/path/to/file.json]
 ```
 
-__Note__: The `--file` flag can take a local or url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/tags/cost_center_codes.json)
+__Note__: The `--file` flag can take a local or a url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/tags/cost_center_codes.json). The `--file` flage can be use multiple times to
+ load valid tag values from multiple files.
 
 ## Usage
 
@@ -68,7 +71,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console
 
 ```shell script
 ➜ check-stack-tag-values --tag CostCenter --file cost_centers_codes.json ./config/prod/ec2.yaml
-- CostCenter not set in config file ./config/prod/ec2.yaml
+- CostCenter tag is not set in config file ./config/prod/ec2.yaml
 ```
 
 __Note:__ To get usage info run the commands with the `--help` flag
@@ -86,7 +89,7 @@ by including the following in `.pre-commit-config.yaml`:
     -    id: check-stack-tags
          args: [--tag=CostCenter]
     -    id: check-stack-tag-values
-         args: --tag=CostCenter [--file="/path/to/file.json"]
+         args: [--tag=CostCenter, --file=/path/to/file.json]
 ```
 replacing `INSERT_VERSION` with a version tag or commit SHA-1.
 
