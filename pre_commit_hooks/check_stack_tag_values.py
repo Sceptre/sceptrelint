@@ -29,15 +29,15 @@ def lint(files: list[str], tag: str, tag_value_files: list[str]) -> bool:
         if util.SCEPTRE_STACK_TAGS_KEY in config:
             stack_tags = config[util.SCEPTRE_STACK_TAGS_KEY]
             if tag not in stack_tags:
-                print(f'- {tag} tag is not set in {file}')
+                print(f'- {file}: {tag} tag is not set')
                 result = True
             else:
                 tag_value = stack_tags[tag]
                 if tag_value not in valid_tag_values:
-                    print(f'- {tag_value} value is not a valid {tag}')
+                    print(f'- {file}: "{tag_value}" value is not a valid {tag}')
                     result = True
         else:
-            print(f'- {util.SCEPTRE_STACK_TAGS_KEY} parameter is not defined')
+            print(f'- {file}: {util.SCEPTRE_STACK_TAGS_KEY} parameter is not defined')
             result = True
 
     return result
