@@ -60,8 +60,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     tag = args.tag
-    tag_value_filess = args.file
-    return int(lint(args.filenames, tag, tag_value_filess))
+    tag_value_files = args.file
+    return int(lint(args.filenames, tag, tag_value_files))
 
 
 if __name__ == '__main__':
