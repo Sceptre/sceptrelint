@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import re
-import os
 import json
+import os
+import re
+from urllib.parse import urlparse
+
 import requests
 import yaml
-
 from jinja2 import Template
-from urllib.parse import urlparse
 
 SCEPTRE_STACK_TAGS_KEY = 'stack_tags'
 SCEPTRE_STACK_NAME_KEY = 'stack_name'
@@ -34,6 +34,7 @@ def load_config(config_path: str) -> dict[str, str]:
         template = Template(new_file.read())
         return yaml.load(template.render(stack_group_config=''), Loader=yaml.FullLoader)
 
+
 def get_local_content(path):
     """
     Gets file contents from a file on the local machine
@@ -41,9 +42,9 @@ def get_local_content(path):
     """
     try:
         filename, file_extension = os.path.splitext(path)
-        with open(path, "r") as file:
+        with open(path) as file:
             content = file.read()
-    except (EnvironmentError, TypeError) as e:
+    except (OSError, TypeError) as e:
         raise e
 
     if content:

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import argparse
-
 from typing import Sequence
+
 from pre_commit_hooks import util
 
 
