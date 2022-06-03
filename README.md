@@ -69,7 +69,7 @@ key and that the value assigned to it is valid.  The valid tag values are from `
 file, excluding `Marketing` and `Edu Outreach`.
 ```yaml
 -   id: check-stack-tags
-    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude="Marketing" --exclude="Edu Outreach"]
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude=Marketing --exclude=Edu Outreach]
 ```
 
 ## Usage
