@@ -2,29 +2,28 @@
 This repo contains scripts for the purpose of pre-commit processing
 (e.g. linting) of [Sceptre configs](https://docs.sceptre-project.org/dev/docs/stack_config.html)
 
-## Installation
-
-The linter scripts can be installed by running `pip install .` and can be run from the
-[sceptre project root directory](https://sceptre.cloudreach.com/dev/docs/templates.html#templates).
-
 ## Linters
 
-* `check-file-names`  Checks that the value  of the `stack_name` matches the
-file name (minus `.yaml`).
+### check-file-names
+
+Checks that the value  of the `stack_name` matches the file name (minus `.yaml`).
 
 ```yaml
 -   id: check-file-names
 ```
 
-* `check-stack-names` Checks for valid stack names in templates. Valid
-stack names are [constraints specified by
+### check-stack-names
+
+Checks for valid stack names in templates. Valid  stack names are [constraints specified by
 CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console-create-stack-parameters.html)
 
 ```yaml
 -   id: check-stack-names
 ```
 
-* `check-stack-tags` Checks that specific stack tags are defined.
+### check-stack-tags
+
+Checks that specific stack tags are defined.
 
 The below checks that the `CostCenter` and `Project` tags are defined in sceptre
 config's `stack_tags` key.
@@ -33,7 +32,9 @@ config's `stack_tags` key.
     args: [--tag=CostCenter, --tag=Project]
 ```
 
-* `check-stack-tag-values` Checks that a specific stack tag is assigned a valid value.
+### check-stack-tag-values
+
+Checks that a specific stack tag is assigned a valid value.
 
 
 | args    | Description                                                                                                                                                |
@@ -69,13 +70,19 @@ key and that the value assigned to it is valid.  The valid tag values are from `
 file, excluding `Marketing` and `Edu Outreach`.
 ```yaml
 -   id: check-stack-tags
-    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude=Marketing --exclude=Edu Outreach]
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json, --exclude=Marketing, --exclude=Edu Outreach]
 ```
 
 ## Usage
 
 ### Stand Alone
-Running scripts:
+
+#### Installation
+
+The linter scripts can be installed by running `pip install .` and can be run from the
+[sceptre project root directory](https://sceptre.cloudreach.com/dev/docs/templates.html#templates).
+
+#### Running scripts:
 
 ```shell script
 ➜ check-stack-names ./config/prod/ec2.yaml
@@ -134,7 +141,7 @@ Stack name linter........................................................Failed
 By default the pre-commit hooks uses the regex defined by `files:` and `exclude:` in
 [.pre-commit-hooks.yaml](.pre-commit-hooks.yaml) to gather the files to process.
 That configuration setting can be overriden in the local project's
-`.pre-commit-config.yaml`.
+`.pre-commit-config.yaml` file.
 
 Override Example:
 ```yaml
