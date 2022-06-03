@@ -7,8 +7,9 @@ from pre_commit_hooks import util
 
 
 def get_valid_tag_values(
-    files: list[str],
-    tag_excludes: list[str]) -> list[str]:
+        files: list[str],
+        tag_excludes: list[str],
+) -> list[str]:
     """
     Get a list of valid tag values from a list of file references. Exclude tags
     from the valid tag list if a list of exluded tags are provides.
@@ -28,9 +29,10 @@ def get_valid_tag_values(
 
 
 def lint(
-    files: list[str],
-    tag: str, tag_value_files: list[str],
-    tag_excludes: list[str]) -> bool:
+        files: list[str],
+        tag: str, tag_value_files: list[str],
+        tag_excludes: list[str],
+) -> bool:
     """
     Check that the tags in the config file contain valid values
     """
