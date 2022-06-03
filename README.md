@@ -44,13 +44,15 @@ config's `stack_tags` key.
 
 __Notes__:
  * The `file` and `exclude` args can be use multiple times
+ * Do not quote tags containing spaces, i.e. `--exclude=Edu Outreach`
  * Example of a file containing valid tags values (valid_tags.json):
 ```
 [
   "Engineering",
   "Operations",
   "Marketing",
-  "Science"
+  "Science",
+  "Edu Outreach"
 ]
 ```
 
@@ -63,11 +65,11 @@ in with a `file` arg.
 ```
 
 __Example 2__: Checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
-key and that the value assigned to it is valid.  The valid tag values are from valid_tags.json
-excluding `Marketing` and `Operations`.
+key and that the value assigned to it is valid.  The valid tag values are from `valid_tags.json`
+file, excluding `Marketing` and `Edu Outreach`.
 ```yaml
 -   id: check-stack-tags
-    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude="Marketing" --exclude="Operations"]
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude="Marketing" --exclude="Edu Outreach"]
 ```
 
 ## Usage
