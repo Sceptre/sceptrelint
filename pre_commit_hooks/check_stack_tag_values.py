@@ -6,23 +6,31 @@ from typing import Sequence
 from pre_commit_hooks import util
 
 
-def get_valid_tag_values(files: list[str]) -> list[str]:
-    valid_values = []
+def get_valid_tag_values(
+    files: list[str],
+    tag_excludes: list[str],
+) -> list[str]:
+    tags_from_files = []
     for file in files:
         if file.startswith('https') or file.startswith('http'):
             content = util.get_url_content(file)
         else:
             content = util.get_local_content(file)
 
-        valid_values.extend(content)
+        tags_from_files.extend(content)
 
+    valid_values = list(set(tags_from_files).difference(tag_excludes))
     return valid_values
 
 
-def lint(files: list[str], tag: str, tag_value_files: list[str]) -> bool:
+def lint(
+    files: list[str],
+    tag: str, tag_value_files: list[str],
+    tag_excludes: list[str],
+) -> bool:
 
     result = False
-    valid_tag_values = get_valid_tag_values(tag_value_files)
+    valid_tag_values = get_valid_tag_values(tag_value_files, tag_excludes)
 
     for file in files:
         config = util.load_config(file)
@@ -58,10 +66,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         help='file containing a list of valid tag values, '
              'may be specified multiple times',
     )
+    parser.add_argument(
+        '-e', '--exclude', action='append', default=[],
+        help='tag to remove from the valid values',
+    )
     args = parser.parse_args(argv)
     tag = args.tag
     tag_value_files = args.file
-    return int(lint(args.filenames, tag, tag_value_files))
+    tag_excludes = args.exclude
+    return int(lint(args.filenames, tag, tag_value_files, tag_excludes))
 
 
 if __name__ == '__main__':

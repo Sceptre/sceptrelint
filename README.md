@@ -35,16 +35,40 @@ config's `stack_tags` key.
 
 * `check-stack-tag-values` Checks that a specific stack tag is assigned a valid value.
 
-The below checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
-key and that the value assigned to it is valid.  The valid tag values are passed
-in with a `file`.
-```yaml
--   id: check-stack-tags
-    args: [--tag=CostCenter, --file=/path/to/file.json]
+
+| args    | Description                                                                                                                                                |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tag     | The tag to validate                                                                                                                                        |
+| file    | A json file with a list of valid tag values, can take a local or a url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/valid_tags.json) |
+| exclude | A tag to exclude from the valid list of tags                                                                                                               |
+
+__Notes__:
+ * The `file` and `exclude` args can be use multiple times
+ * Example of a file containing valid tags values (valid_tags.json):
+```
+[
+  "Engineering",
+  "Operations",
+  "Marketing",
+  "Science"
+]
 ```
 
-__Note__: The `--file` flag can take a local or a url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/tags/cost_center_codes.json). The `--file` flage can be use multiple times to
- load valid tag values from multiple files.
+__Example 1__: Checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
+key and that the value assigned to it is valid.  The valid tag values are passed
+in with a `file` arg.
+```yaml
+-   id: check-stack-tags
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json]
+```
+
+__Example 2__: Checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
+key and that the value assigned to it is valid.  The valid tag values are from valid_tags.json
+excluding `Marketing` and `Operations`.
+```yaml
+-   id: check-stack-tags
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude="Marketing" --exclude="Operations"]
+```
 
 ## Usage
 
@@ -89,7 +113,7 @@ by including the following in `.pre-commit-config.yaml`:
     -    id: check-stack-tags
          args: [--tag=CostCenter]
     -    id: check-stack-tag-values
-         args: [--tag=CostCenter, --file=/path/to/file.json]
+         args: [--tag=CostCenter, --file=/path/to/valid_tags.json]
 ```
 replacing `INSERT_VERSION` with a version tag or commit SHA-1.
 
