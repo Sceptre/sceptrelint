@@ -1,0 +1,5 @@
+template:
+  path: "template.yaml"
+stack_name: "stack"
+stack_tags:
+  color: "grey"

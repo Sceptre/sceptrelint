@@ -24,12 +24,52 @@ CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/c
 -   id: check-stack-names
 ```
 
-* `check-stack-tags` Checks that specific stag tags are defined.
+* `check-stack-tags` Checks that specific stack tags are defined.
 
-The below checks that the `CostCenter` and `Project` tags are defined in sceptre config's `stack_tags` key.
+The below checks that the `CostCenter` and `Project` tags are defined in sceptre
+config's `stack_tags` key.
 ```yaml
 -   id: check-stack-tags
     args: [--tag=CostCenter, --tag=Project]
+```
+
+* `check-stack-tag-values` Checks that a specific stack tag is assigned a valid value.
+
+
+| args    | Description                                                                                                                                                |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tag     | The tag to validate                                                                                                                                        |
+| file    | A json file with a list of valid tag values, can take a local or a url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/valid_tags.json) |
+| exclude | A tag to exclude from the valid list of tags                                                                                                               |
+
+__Notes__:
+ * The `file` and `exclude` args can be use multiple times
+ * Do not quote tags containing spaces, i.e. `--exclude=Edu Outreach`
+ * Example of a file containing valid tags values (valid_tags.json):
+```
+[
+  "Engineering",
+  "Operations",
+  "Marketing",
+  "Science",
+  "Edu Outreach"
+]
+```
+
+__Example 1__: Checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
+key and that the value assigned to it is valid.  The valid tag values are passed
+in with a `file` arg.
+```yaml
+-   id: check-stack-tags
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json]
+```
+
+__Example 2__: Checks that the `CostCenter` tag is defined in sceptre config's `stack_tags`
+key and that the value assigned to it is valid.  The valid tag values are from `valid_tags.json`
+file, excluding `Marketing` and `Edu Outreach`.
+```yaml
+-   id: check-stack-tags
+    args: [--tag=CostCenter, --file=/path/to/valid_tags.json --exclude=Marketing --exclude=Edu Outreach]
 ```
 
 ## Usage
@@ -55,6 +95,11 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console
 - stack_tags is missing CostCenter [./config/prod/veoibd-s3.yaml]
 ```
 
+```shell script
+➜ check-stack-tag-values --tag CostCenter --file cost_centers_codes.json ./config/prod/ec2.yaml
+- config/prod/ec2.yaml: "Basketball" is not a valid CostCenter
+```
+
 __Note:__ To get usage info run the commands with the `--help` flag
 
 
@@ -69,6 +114,8 @@ by including the following in `.pre-commit-config.yaml`:
     -    id: check-stack-names
     -    id: check-stack-tags
          args: [--tag=CostCenter]
+    -    id: check-stack-tag-values
+         args: [--tag=CostCenter, --file=/path/to/valid_tags.json]
 ```
 replacing `INSERT_VERSION` with a version tag or commit SHA-1.
 
