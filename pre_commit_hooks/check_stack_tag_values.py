@@ -8,8 +8,12 @@ from pre_commit_hooks import util
 
 def get_valid_tag_values(
     files: list[str],
-    tag_excludes: list[str],
-) -> list[str]:
+    tag_excludes: list[str]) -> list[str]:
+    """
+    Get a list of valid tag values from a list of file references. Exclude tags
+    from the valid tag list if a list of exluded tags are provides.
+    """
+
     tags_from_files = []
     for file in files:
         if file.startswith('https') or file.startswith('http'):
@@ -26,8 +30,10 @@ def get_valid_tag_values(
 def lint(
     files: list[str],
     tag: str, tag_value_files: list[str],
-    tag_excludes: list[str],
-) -> bool:
+    tag_excludes: list[str]) -> bool:
+    """
+    Check that the tags in the config file contain valid values
+    """
 
     result = False
     valid_tag_values = get_valid_tag_values(tag_value_files, tag_excludes)
@@ -42,7 +48,7 @@ def lint(
             else:
                 tag_value = stack_tags[tag]
                 if tag_value not in valid_tag_values:
-                    print(f'- {file}: "{tag_value}" value is not a valid {tag}')
+                    print(f'- {file}: "{tag_value}" is not a valid {tag}')
                     result = True
         else:
             print(f'- {file}: {util.SCEPTRE_STACK_TAGS_KEY} parameter is not defined')
@@ -53,8 +59,9 @@ def lint(
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    Check that the tags in the config file contain valid values
+    Execute the linter, either manually or by pre-commit
     """
+
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     parser.add_argument(

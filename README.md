@@ -95,7 +95,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console
 
 ```shell script
 ➜ check-stack-tag-values --tag CostCenter --file cost_centers_codes.json ./config/prod/ec2.yaml
-- CostCenter tag is not set in config file ./config/prod/ec2.yaml
+- config/prod/ec2.yaml: "Basketball" is not a valid CostCenter
 ```
 
 __Note:__ To get usage info run the commands with the `--help` flag
