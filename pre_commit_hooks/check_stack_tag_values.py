@@ -75,7 +75,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     parser.add_argument(
         '-e', '--exclude', action='append', default=[],
-        help='tag to remove from the valid values',
+        help='tag to remove from the valid tag values list, '
+             'may be specified multiple times',
     )
     args = parser.parse_args(argv)
     tag = args.tag
