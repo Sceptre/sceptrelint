@@ -15,7 +15,7 @@ def get_valid_tag_values(
     from the valid tag list if a list of exluded tags are provides.
     """
 
-    tags_from_files = []
+    tags_from_files: list[str] = []
     for file in files:
         if file.startswith('https') or file.startswith('http'):
             content = util.get_url_content(file)
