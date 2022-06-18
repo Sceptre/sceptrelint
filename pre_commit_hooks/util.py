@@ -68,7 +68,7 @@ def get_url_content(path: str) -> str:
         response = requests.get(path)
         content = response.text
         if response.status_code != requests.codes.ok:
-            raise requests.exceptions.HTTPError
+            raise requests.exceptions.HTTPError(content)
     except requests.exceptions.RequestException as e:
         raise e
 
