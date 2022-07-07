@@ -79,3 +79,13 @@ def get_url_content(path: str) -> str:
             content = yaml.safe_load(content)
 
     return content
+
+
+def get_content(file: str) -> str:
+
+    if file.startswith('http'):
+        content = get_url_content(file)
+    else:
+        content = get_local_content(file)
+
+    return content

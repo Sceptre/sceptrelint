@@ -17,11 +17,7 @@ def get_valid_tag_values(
 
     tags_from_files: list[str] = []
     for file in files:
-        if file.startswith('https') or file.startswith('http'):
-            content = util.get_url_content(file)
-        else:
-            content = util.get_local_content(file)
-
+        content = util.get_content(file)
         tags_from_files.extend(content)
 
     valid_values = list(set(tags_from_files).difference(tag_excludes))
