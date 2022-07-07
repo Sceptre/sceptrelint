@@ -15,7 +15,7 @@ def lint(files: list[str]) -> bool:
         stack_name = config[util.SCEPTRE_STACK_NAME_KEY]
         if not re.match(util.STACK_NAME_PATTERN, stack_name):
             print(f'- {stack_name} is an invalid stack name [{file}]')
-            result = 1
+            result = True
 
     return result
 
