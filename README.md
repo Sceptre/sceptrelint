@@ -37,13 +37,15 @@ config's `stack_tags` key.
 Checks that a specific stack tag is assigned a valid value.
 
 
-| args    | Description                                                                                                                                                |
-|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| tag     | The tag to validate                                                                                                                                        |
-| file    | A json file with a list of valid tag values, can take a local or a url reference (i.e. https://raw.githubusercontent.com/acme/repo/master/valid_tags.json) |
-| exclude | A tag to exclude from the valid list of tags                                                                                                               |
+| args    | Description                                                           |
+|---------|-----------------------------------------------------------------------|
+| tag     | The tag to validate                                                   |
+| file    | A json file with a list of valid tag values                           |
+| exclude | A tag to exclude from the valid list of tags                          |
 
 __Notes__:
+ * The `file` can take a local (i.e. /home/project/valid_tags.json) or a url
+   reference (i.e. https://raw.githubusercontent.com/acme/repo/master/valid_tags.json)
  * The `file` and `exclude` args can be use multiple times
  * Do not quote tags containing spaces, i.e. `--exclude=Edu Outreach`
  * Example of a file containing valid tags values (valid_tags.json):

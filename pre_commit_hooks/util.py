@@ -36,52 +36,58 @@ def load_config(config_path: str) -> Any:
         return yaml.load(template.render(stack_group_config=''), Loader=yaml.FullLoader)
 
 
-def get_local_content(path: str) -> str:
+def get_local_content(path: str) -> list[str]:
     """
     Gets file contents from a file on the local machine
     :param path: The absolute path to a file
+    The path can reference a file containing yaml or json content.
+    The default is to assume json content.
     """
     try:
         filename, file_extension = os.path.splitext(path)
         with open(path, encoding='utf-8') as file:
-            content = file.read()
+            raw_content = file.read()
     except (OSError, TypeError) as e:
         raise e
 
-    if content:
-        if file_extension == '.json':
-            content = json.loads(content)
+    content = []
+    if raw_content:
         if file_extension == '.yaml' or file_extension == '.yml':
-            content = yaml.safe_load(content)
+            content = yaml.safe_load(raw_content)
+        else:
+            content = json.loads(raw_content)
 
     return content
 
 
-def get_url_content(path: str) -> str:
+def get_url_content(path: str) -> list[str]:
     """
     Gets file contents from a file at a URL location
     :param path: The URL reference to a file
+    The path can reference a file containing yaml or json content.
+    The default is to assume json content.
     """
     url = urlparse(path)
     filename, file_extension = os.path.splitext(url.path)
     try:
         response = requests.get(path)
-        content = response.text
+        raw_content = response.text
         if response.status_code != requests.codes.ok:
-            raise requests.exceptions.HTTPError(content)
+            raise requests.exceptions.HTTPError(raw_content)
     except requests.exceptions.RequestException as e:
         raise e
 
-    if content:
-        if file_extension == '.json':
-            content = json.loads(content)
+    content = []
+    if raw_content:
         if file_extension == '.yaml' or file_extension == '.yml':
-            content = yaml.safe_load(content)
+            content = yaml.safe_load(raw_content)
+        else:
+            content = json.loads(raw_content)
 
     return content
 
 
-def get_content(file: str) -> str:
+def get_content(file: str) -> list[str]:
 
     if file.startswith('http'):
         content = get_url_content(file)
