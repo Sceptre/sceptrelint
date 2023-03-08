@@ -12,6 +12,12 @@ def test_stack_tags_key_exist_value_valid_single_file():
     assert not lint(files, 'color', [f'{resource_path}/tag_values1.json'], [])
 
 
+def test_stack_tags_key_exist_value_valid_no_file_extension():
+    resource_path = get_resource_path(TEST_RESOURCES_DIR)
+    files = [f'{resource_path}/stack_tags_match_tag_values1.yaml']
+    assert not lint(files, 'color', [f'{resource_path}/tag_values1'], [])
+
+
 def test_stack_tags_key_exist_value_valid_multiple_files():
     resource_path = get_resource_path(TEST_RESOURCES_DIR)
     files = [f'{resource_path}/stack_tags_match_tag_values2.yaml']
