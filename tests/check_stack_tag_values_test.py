@@ -12,6 +12,12 @@ def test_stack_tags_key_exist_value_valid_single_file():
     assert not lint(files, 'color', [f'{resource_path}/tag_values1.json'], [])
 
 
+def test_stack_tags_key_exist_value_valid_no_file_extension():
+    resource_path = get_resource_path(TEST_RESOURCES_DIR)
+    files = [f'{resource_path}/stack_tags_match_tag_values1.yaml']
+    assert not lint(files, 'color', [f'{resource_path}/tag_values1'], [])
+
+
 def test_stack_tags_key_exist_value_valid_multiple_files():
     resource_path = get_resource_path(TEST_RESOURCES_DIR)
     files = [f'{resource_path}/stack_tags_match_tag_values2.yaml']
@@ -66,3 +72,15 @@ def test_stack_tags_tag_not_in_config_file():
     resource_path = get_resource_path(TEST_RESOURCES_DIR)
     files = [f'{resource_path}/stack_tags_tag_not_set.yaml']
     assert lint(files, 'color', [f'{resource_path}/tag_values1.json'], [])
+
+
+def test_stack_tags_key_from_http_exist_value_valid():
+    resource_path = get_resource_path(TEST_RESOURCES_DIR)
+    files = [f'{resource_path}/stack_tags_from_http_match_tag_value.yaml']
+    assert not lint(files, 'color', ['https://finops-api.sageit.org/tags'], [])
+
+
+def test_stack_tags_key_from_http_non_matching_value():
+    resource_path = get_resource_path(TEST_RESOURCES_DIR)
+    files = [f'{resource_path}/stack_tags_from_http_non_matching_value.yaml']
+    assert lint(files, 'color', ['https://finops-api.sageit.org/tags'], [])
