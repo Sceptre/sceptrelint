@@ -15,13 +15,17 @@ def lint(files: list[str], tags: list[str]) -> bool:
             if config[util.SCEPTRE_STACK_TAGS_KEY]:
                 for tag in tags:
                     if tag not in config[util.SCEPTRE_STACK_TAGS_KEY]:
-                        print(f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing {tag} [{file}]')
+                        print(
+                            f'- {util.SCEPTRE_STACK_TAGS_KEY} is missing {tag} [{file}',
+                        )
                         result = True
             else:
                 print(f'- missing {util.SCEPTRE_STACK_TAGS_KEY} [{file}]')
                 result = True
         else:
-            print(f'- missing {util.SCEPTRE_STACK_TAGS_KEY} definition [{file}]')
+            print(
+                f'- missing {util.SCEPTRE_STACK_TAGS_KEY} definition [{file}',
+            )
             result = True
 
     return result

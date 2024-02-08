@@ -49,7 +49,9 @@ def lint(
                     print(f'- {file}: "{tag_value}" is not a valid {tag}')
                     result = True
         else:
-            print(f'- {file}: {util.SCEPTRE_STACK_TAGS_KEY} parameter is not defined')
+            print(
+                f'- {file}: {util.SCEPTRE_STACK_TAGS_KEY} parameter is not defined',
+            )
             result = True
 
     return result
