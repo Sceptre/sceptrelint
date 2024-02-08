@@ -139,3 +139,6 @@ temp/
 
 # testing
 publish.sh
+
+# pytest
+test-reports/
